@@ -1,5 +1,7 @@
 # Jarvis — AI Personal Assistant
 
+[![Live Demo](https://img.shields.io/badge/live-demo-brightgreen?style=flat-square)](https://abi2707.github.io/jarvis-ai/) [![Backend](https://img.shields.io/badge/backend-railway-blueviolet?style=flat-square)](https://railway.app)
+
 A voice-enabled AI assistant with real-time streaming responses and a glassmorphic dark UI. Speak or type — Jarvis thinks, responds, and talks back.
 
 ![stack](https://img.shields.io/badge/React_18-TypeScript-61DAFB?style=flat-square&logo=react)
