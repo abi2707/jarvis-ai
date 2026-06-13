@@ -58,7 +58,8 @@ export default function App() {
     try {
       const history = [...messages, userMsg].map(m => ({ role: m.role, content: m.content }))
 
-      const res = await fetch('/chat/stream', {
+      const base: string = import.meta.env.VITE_API_URL ?? ''
+      const res = await fetch(`${base}/chat/stream`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: history }),
@@ -111,14 +112,17 @@ export default function App() {
   }
 
   const startListening = () => {
-    const SR = window.SpeechRecognition || (window as unknown as { webkitSpeechRecognition: typeof SpeechRecognition }).webkitSpeechRecognition
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const w = window as any
+    const SR = w.SpeechRecognition || w.webkitSpeechRecognition
     if (!SR) return
     const recognition = new SR()
     recognition.continuous = false
     recognition.interimResults = false
     recognition.onstart = () => { setIsListening(true); setStatus('listening') }
     recognition.onend = () => { setIsListening(false); if (status === 'listening') setStatus('idle') }
-    recognition.onresult = (e: SpeechRecognitionEvent) => sendMessage(e.results[0][0].transcript)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    recognition.onresult = (e: any) => sendMessage(e.results[0][0].transcript)
     recognition.onerror = () => { setIsListening(false); setStatus('idle') }
     recognition.start()
   }
