@@ -6,7 +6,13 @@ import Groq from 'groq-sdk'
 dotenv.config()
 
 const app = express()
-app.use(cors())
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'https://abi2707.github.io',
+  ],
+  methods: ['GET', 'POST'],
+}))
 app.use(express.json())
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY })
